@@ -97,9 +97,9 @@ body {
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
-  color: var(--bs-body-color);
+  color: #6b001b;
   text-align: var(--bs-body-text-align);
-  background-color: var(--bs-body-bg);
+  background-color: #603d3d;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -8036,7 +8036,7 @@ textarea.form-control-lg {
 /* rtl:end:remove */
 .text-primary {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+  color: #f57c9b;
 }
 
 .text-secondary {
@@ -10837,7 +10837,7 @@ p {
 }
 
 .text-faded {
-  color: #f6e1c5;
+  color: #eac0cb;
 }
 
 .site-heading {
@@ -10878,7 +10878,7 @@ p {
 }
 
 .bg-faded {
-  background-color: #f6e1c5;
+  background-color: #ffe6e6;
 }
 
 .btn-xl {
@@ -10891,11 +10891,11 @@ p {
 }
 
 #mainNav {
-  background-color: rgba(47, 23, 15, 0.9);
+  background-color: #eac0cb57;
   font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 #mainNav .navbar-brand {
-  color: #e6a756;
+  color: #f57c9b;
 }
 #mainNav .navbar-nav .nav-item .nav-link {
   color: rgba(255, 255, 255, 0.7);

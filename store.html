@@ -86,11 +86,21 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
     </body>
-    <script>
+<script>
   document.querySelector("form").addEventListener("submit", function () {
-    const orderNum = "ORD-" + Math.floor(Math.random() * 1000000);
+    const now = new Date();
+    const datePart = 
+      now.getFullYear().toString().slice(-2) + // YY
+      (now.getMonth() + 1).toString().padStart(2, '0') + // MM
+      now.getDate().toString().padStart(2, '0'); // DD
+
+    const randomSuffix = Math.floor(100 + Math.random() * 900); // 100–999
+
+    const orderNum = `ORD-${datePart}-${randomSuffix}`;
+
     document.getElementById("order-number").value = orderNum;
   });
 </script>
+
 
 </html>

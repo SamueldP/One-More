@@ -58,18 +58,31 @@
                                 <br>Account Number: 19266109636
                                 <br>REF: Your Name + Cookie Name x amount</p>
 <div class="container py-5">
-  <div class="card shadow-lg border-0 mx-auto" style="max-width: 800px;">
-    <div class="card-body p-4">
-      <h2 class="card-title text-center mb-4">Place Your Cookie Order</h2>
-      <iframe 
-        src="https://docs.google.com/forms/d/e/1FAIpQLScqd_CRNAHdrtVEgiOGcAqK9QfVEoEU8vWzFv0bAxzJ4CMvOw/viewform?embedded=true"
-        width="100%" height="1133" frameborder="0" marginheight="0" marginwidth="0"
-        style="border: none;">
-        Loading…
-      </iframe>
+  <h2 class="mb-4 text-center">Place Your Cookie Order</h2>
+  <form action="https://formspree.io/f/yourFormID" method="POST" class="mx-auto" style="max-width: 600px;">
+    
+    <div class="mb-3">
+      <label for="name" class="form-label">Name and Surname</label>
+      <input type="text" class="form-control" id="name" name="name" required>
     </div>
-  </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email Address</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="order" class="form-label">Your Cookie Order</label>
+      <textarea class="form-control" id="order" name="order" rows="5" required></textarea>
+    </div>
+
+    <!-- Hidden field for order number -->
+    <input type="hidden" name="order-number" id="order-number">
+
+    <button type="submit" class="btn btn-primary w-100">Send Order</button>
+  </form>
 </div>
+
 
 
 

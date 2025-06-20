@@ -104,29 +104,92 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
 
                             
 <div class="container py-5">
-  <h2 class="mb-4 text-center">Place Your Cookie Order</h2>
-  <form action="https://formspree.io/f/xyzjpevz" method="POST" class="mx-auto" style="max-width: 600px;">
-    
-    <div class="mb-3">
-      <label for="name" class="form-label">Name and Surname</label>
-      <input type="text" class="form-control" id="name" name="name" required>
-    </div>
+<form id="cookieOrderForm" class="p-4 border rounded shadow-sm bg-white" style="max-width: 600px; margin: auto;">
+  <h3 class="mb-4 text-center">Place Your Cookie Order</h3>
 
-    <div class="mb-3">
-      <label for="email" class="form-label">Email Address</label>
-      <input type="email" class="form-control" id="email" name="email" required>
-    </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <input type="email" class="form-control" name="email" id="email" required>
+  </div>
 
-    <div class="mb-3">
-      <label for="order" class="form-label">Your Cookie Order</label>
-      <textarea class="form-control" id="order" name="order" rows="5" required></textarea>
-    </div>
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" name="name" id="name" required>
+  </div>
 
-    <!-- Hidden field for order number -->
-    <input type="hidden" name="order-number" id="order-number">
+  <!-- Cookie inputs -->
+  <div class="mb-3">
+    <label for="cookie1" class="form-label">Cookie 1 (R10 each)</label>
+    <input type="number" class="form-control cookie-input" name="cookie1" id="cookie1" value="0" min="0" data-price="10">
+  </div>
 
-    <button type="submit" class="btn btn-primary w-100">Send Order</button>
-  </form>
+  <div class="mb-3">
+    <label for="cookie2" class="form-label">Cookie 2 (R12 each)</label>
+    <input type="number" class="form-control cookie-input" name="cookie2" id="cookie2" value="0" min="0" data-price="12">
+  </div>
+
+  <div class="mb-3">
+    <label for="cookie3" class="form-label">Cookie 3 (R15 each)</label>
+    <input type="number" class="form-control cookie-input" name="cookie3" id="cookie3" value="0" min="0" data-price="15">
+  </div>
+
+  <div class="mb-3">
+    <label for="cookie4" class="form-label">Cookie 4 (R20 each)</label>
+    <input type="number" class="form-control cookie-input" name="cookie4" id="cookie4" value="0" min="0" data-price="20">
+  </div>
+
+  <!-- Total display -->
+  <div class="mb-4">
+    <h5 class="text-end">Total: <span id="orderTotal">R0</span></h5>
+  </div>
+
+  <div class="d-grid">
+    <button type="submit" class="btn btn-primary">Submit Order</button>
+  </div>
+</form>
+
+<script>
+const inputs = document.querySelectorAll('.cookie-input');
+const totalDisplay = document.getElementById('orderTotal');
+
+function updateTotal() {
+  let total = 0;
+  inputs.forEach(input => {
+    const quantity = parseInt(input.value) || 0;
+    const price = parseFloat(input.dataset.price);
+    total += quantity * price;
+  });
+  totalDisplay.textContent = 'R' + total;
+}
+
+// Update total when any input changes
+inputs.forEach(input => {
+  input.addEventListener('input', updateTotal);
+});
+
+// Submit form
+document.getElementById('cookieOrderForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+
+  fetch('https://script.google.com/macros/s/YOUR_WEB_APP_URL/exec', {
+    method: 'POST',
+    body: data
+  })
+  .then(res => res.text())
+  .then(msg => {
+    alert(msg);
+    form.reset();
+    updateTotal(); // Reset total after submit
+  })
+  .catch(err => alert('Error: ' + err));
+});
+
+// Calculate initial total
+updateTotal();
+</script>
+
 </div>
 
 

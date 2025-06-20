@@ -172,25 +172,44 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
   const form = e.target;
   const data = new FormData(form);
 
-  fetch('https://script.google.com/macros/s/AKfycbwctzJM37YsJPnulHNo4ZZvcRsW373JydiYzyEffI7Zu4vF9hf2akUKOn4tTOOGqIH9WA/exec', {
-    method: 'POST',
-    body: data
-  })
-  .then(res => res.text())
-  .then(msg => {
-    alert(msg);
-    form.reset();
-    updateTotal(); // clear total after reset
-  })
-  .catch(err => {
-    console.error(err);
-    alert('Error: ' + err);
-  });
+  // ✅ Try/Catch for safe debugging
+  try {
+    let total = 0;
+    inputs.forEach(input => {
+      const quantity = parseInt(input.value) || 0;
+      const price = parseFloat(input.dataset.price);
+      total += quantity * price;
+    });
+    data.append('total', total);
+
+    // Debug: show values before submitting
+    console.log("Submitting order...");
+    console.log("Total:", total);
+
+    fetch('https://script.google.com/macros/s/AKfycbwctzJM37YsJPnulHNo4ZZvcRsW373JydiYzyEffI7Zu4vF9hf2akUKOn4tTOOGqIH9WA/exec', {
+      method: 'POST',
+      body: data
+    })
+    .then(res => res.text())
+    .then(msg => {
+      alert(msg);
+      form.reset();
+      updateTotal();
+    })
+    .catch(err => {
+      console.error("Fetch error:", err);
+      alert('There was an error submitting your order.');
+    });
+  } catch (error) {
+    console.error("Script error:", error);
+    alert('Something went wrong.');
+  }
 });
 
-// Calculate initial total
+// Calculate initial total on page load
 updateTotal();
 </script>
+
 
 </div>
 <!-- Total display -->

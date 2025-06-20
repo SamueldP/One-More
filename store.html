@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+,<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -150,64 +150,19 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
 </form>
 
 <script>
-const inputs = document.querySelectorAll('.cookie-input');
-const totalDisplay = document.getElementById('orderTotal');
-
-function updateTotal() {
-  let total = 0;
-  inputs.forEach(input => {
-    const quantity = parseInt(input.value) || 0;
-    const price = parseFloat(input.dataset.price);
-    total += quantity * price;
-  });
-  totalDisplay.textContent = 'R' + total;
-}
-
-inputs.forEach(input => {
-  input.addEventListener('input', updateTotal);
-});
-
 document.getElementById('cookieOrderForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const form = e.target;
   const data = new FormData(form);
 
-  // ✅ Try/Catch for safe debugging
-  try {
-    let total = 0;
-    inputs.forEach(input => {
-      const quantity = parseInt(input.value) || 0;
-      const price = parseFloat(input.dataset.price);
-      total += quantity * price;
-    });
-    data.append('total', total);
-
-    // Debug: show values before submitting
-    console.log("Submitting order...");
-    console.log("Total:", total);
-
-    fetch('https://script.google.com/macros/s/AKfycbwctzJM37YsJPnulHNo4ZZvcRsW373JydiYzyEffI7Zu4vF9hf2akUKOn4tTOOGqIH9WA/exec', {
-      method: 'POST',
-      body: data
-    })
-    .then(res => res.text())
-    .then(msg => {
-      alert(msg);
-      form.reset();
-      updateTotal();
-    })
-    .catch(err => {
-      console.error("Fetch error:", err);
-      alert('There was an error submitting your order.');
-    });
-  } catch (error) {
-    console.error("Script error:", error);
-    alert('Something went wrong.');
-  }
+  fetch('https://script.google.com/macros/s/AKfycbwctzJM37YsJPnulHNo4ZZvcRsW373JydiYzyEffI7Zu4vF9hf2akUKOn4tTOOGqIH9WA/exec', {
+    method: 'POST',
+    body: data
+  })
+  .then(res => res.text())
+  .then(msg => alert(msg))
+  .catch(err => alert('Error: ' + err));
 });
-
-// Calculate initial total on page load
-updateTotal();
 </script>
 
 

@@ -60,6 +60,48 @@
 <div class="container" id="ff-compose"></div>
 <script async defer src="https://formfacade.com/include/110188720470357487421/form/1FAIpQLScqd_CRNAHdrtVEgiOGcAqK9QfVEoEU8vWzFv0bAxzJ4CMvOw/bootstrap.js?div=ff-compose"></script>
 
+
+<form id="cookieOrderForm" style="max-width: 500px; margin: auto;">
+  <h2>Place Your Cookie Order</h2>
+
+  <label>Email:</label>
+  <input type="email" name="email" required><br><br>
+
+  <label>Name:</label>
+  <input type="text" name="name" required><br><br>
+
+  <label>Cookie 1:</label>
+  <input type="number" name="cookie1" min="0" value="0"><br><br>
+
+  <label>Cookie 2:</label>
+  <input type="number" name="cookie2" min="0" value="0"><br><br>
+
+  <label>Cookie 3:</label>
+  <input type="number" name="cookie3" min="0" value="0"><br><br>
+
+  <label>Cookie 4:</label>
+  <input type="number" name="cookie4" min="0" value="0"><br><br>
+
+  <button type="submit">Submit Order</button>
+</form>
+
+<script>
+document.getElementById('cookieOrderForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+
+  fetch('https://script.google.com/macros/s/YOUR_WEB_APP_URL/exec', {
+    method: 'POST',
+    body: data
+  })
+  .then(res => res.text())
+  .then(msg => alert(msg))
+  .catch(err => alert('Error: ' + err));
+});
+</script>
+
+
                             
 <div class="container py-5">
   <h2 class="mb-4 text-center">Place Your Cookie Order</h2>

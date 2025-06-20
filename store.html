@@ -119,28 +119,27 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
     <input type="text" class="form-control" name="name" id="name" required>
   </div>
 
-  <!-- Cookie inputs -->
   <div class="mb-3">
-    <label for="cookie1" class="form-label">More PB (R75 per bag)</label>
-    <input type="number" class="form-control cookie-input" name="cookie1" id="cookie1" value="0" min="0" data-price="75">
+    <label for="cookie1" class="form-label">Cookie 1 (R10)</label>
+    <input type="number" class="form-control cookie-input" name="cookie1" id="cookie1" value="0" min="0" data-price="10">
   </div>
 
   <div class="mb-3">
-    <label for="cookie2" class="form-label">The Plain One (R75 per bag)</label>
-    <input type="number" class="form-control cookie-input" name="cookie2" id="cookie2" value="0" min="0" data-price="75">
+    <label for="cookie2" class="form-label">Cookie 2 (R12)</label>
+    <input type="number" class="form-control cookie-input" name="cookie2" id="cookie2" value="0" min="0" data-price="12">
   </div>
 
   <div class="mb-3">
-    <label for="cookie3" class="form-label">Salty C (R65 per bag)</label>
-    <input type="number" class="form-control cookie-input" name="cookie3" id="cookie3" value="0" min="0" data-price="65">
+    <label for="cookie3" class="form-label">Cookie 3 (R15)</label>
+    <input type="number" class="form-control cookie-input" name="cookie3" id="cookie3" value="0" min="0" data-price="15">
   </div>
 
   <div class="mb-3">
-    <label for="cookie4" class="form-label">Coffe Hit (R70 per bag)</label>
-    <input type="number" class="form-control cookie-input" name="cookie4" id="cookie4" value="0" min="0" data-price="70">
+    <label for="cookie4" class="form-label">Cookie 4 (R20)</label>
+    <input type="number" class="form-control cookie-input" name="cookie4" id="cookie4" value="0" min="0" data-price="20">
   </div>
 
-  <!-- Total display -->
+  <!-- Display total only (not submitted) -->
   <div class="mb-4">
     <h5 class="text-end">Total: <span id="orderTotal">R0</span></h5>
   </div>
@@ -164,12 +163,10 @@ function updateTotal() {
   totalDisplay.textContent = 'R' + total;
 }
 
-// Update total when any input changes
 inputs.forEach(input => {
   input.addEventListener('input', updateTotal);
 });
 
-// Submit form
 document.getElementById('cookieOrderForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const form = e.target;
@@ -183,9 +180,12 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
   .then(msg => {
     alert(msg);
     form.reset();
-    updateTotal(); // Reset total after submit
+    updateTotal(); // clear total after reset
   })
-  .catch(err => alert('Error: ' + err));
+  .catch(err => {
+    console.error(err);
+    alert('Error: ' + err);
+  });
 });
 
 // Calculate initial total

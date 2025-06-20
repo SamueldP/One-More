@@ -120,18 +120,21 @@ function updateTotal() {
     total += quantity * price;
   });
   totalDisplay.textContent = 'R' + total;
+  return total;
 }
 
-// Update total when any input changes
 inputs.forEach(input => {
   input.addEventListener('input', updateTotal);
 });
 
-// Submit form
 document.getElementById('cookieOrderForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const form = e.target;
   const data = new FormData(form);
+
+  // ⬇️ Add the total to the FormData before sending
+  const total = updateTotal(); // run and get current total
+  data.append('total', total);
 
   fetch('https://script.google.com/macros/s/AKfycbwctzJM37YsJPnulHNo4ZZvcRsW373JydiYzyEffI7Zu4vF9hf2akUKOn4tTOOGqIH9WA/exec', {
     method: 'POST',
@@ -141,13 +144,12 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
   .then(msg => {
     alert(msg);
     form.reset();
-    updateTotal(); // Reset total after submit
+    updateTotal(); // clear total display
   })
   .catch(err => alert('Error: ' + err));
 });
 
-// Calculate initial total
-updateTotal();
+updateTotal(); // run on page load
 </script>
 
 

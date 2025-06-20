@@ -60,51 +60,10 @@
 <div class="container" id="ff-compose"></div>
 <script async defer src="https://formfacade.com/include/110188720470357487421/form/1FAIpQLScqd_CRNAHdrtVEgiOGcAqK9QfVEoEU8vWzFv0bAxzJ4CMvOw/bootstrap.js?div=ff-compose"></script>
 
-
-<form id="cookieOrderForm" style="max-width: 500px; margin: auto;">
-  <h2>Place Your Cookie Order</h2>
-
-  <label>Email:</label>
-  <input type="email" name="email" required><br><br>
-
-  <label>Name:</label>
-  <input type="text" name="name" required><br><br>
-
-  <label>Cookie 1:</label>
-  <input type="number" name="cookie1" min="0" value="0"><br><br>
-
-  <label>Cookie 2:</label>
-  <input type="number" name="cookie2" min="0" value="0"><br><br>
-
-  <label>Cookie 3:</label>
-  <input type="number" name="cookie3" min="0" value="0"><br><br>
-
-  <label>Cookie 4:</label>
-  <input type="number" name="cookie4" min="0" value="0"><br><br>
-
-  <button type="submit">Submit Order</button>
-</form>
-
-<script>
-document.getElementById('cookieOrderForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = new FormData(form);
-
-  fetch('https://script.google.com/macros/s/AKfycbwctzJM37YsJPnulHNo4ZZvcRsW373JydiYzyEffI7Zu4vF9hf2akUKOn4tTOOGqIH9WA/exec', {
-    method: 'POST',
-    body: data
-  })
-  .then(res => res.text())
-  .then(msg => alert(msg))
-  .catch(err => alert('Error: ' + err));
-});
-</script>
-
 <!-- Total display -->
 <!-- Total display -->
 <!-- Total display -->
-                            
+<!-- Total display -->
 <form id="cookieOrderForm" class="p-4 border rounded shadow-sm bg-white" style="max-width: 600px; margin: auto;">
   <h3 class="mb-4 text-center">Place Your Cookie Order</h3>
 
@@ -118,24 +77,30 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
     <input type="text" class="form-control" name="name" id="name" required>
   </div>
 
+  <!-- Cookie inputs -->
   <div class="mb-3">
-    <label for="cookie1" class="form-label">Cookie 1</label>
-    <input type="number" class="form-control" name="cookie1" id="cookie1" value="0" min="0">
+    <label for="cookie1" class="form-label">Cookie 1 (R10 each)</label>
+    <input type="number" class="form-control cookie-input" name="cookie1" id="cookie1" value="0" min="0" data-price="10">
   </div>
 
   <div class="mb-3">
-    <label for="cookie2" class="form-label">Cookie 2</label>
-    <input type="number" class="form-control" name="cookie2" id="cookie2" value="0" min="0">
+    <label for="cookie2" class="form-label">Cookie 2 (R12 each)</label>
+    <input type="number" class="form-control cookie-input" name="cookie2" id="cookie2" value="0" min="0" data-price="12">
   </div>
 
   <div class="mb-3">
-    <label for="cookie3" class="form-label">Cookie 3</label>
-    <input type="number" class="form-control" name="cookie3" id="cookie3" value="0" min="0">
+    <label for="cookie3" class="form-label">Cookie 3 (R15 each)</label>
+    <input type="number" class="form-control cookie-input" name="cookie3" id="cookie3" value="0" min="0" data-price="15">
   </div>
 
   <div class="mb-3">
-    <label for="cookie4" class="form-label">Cookie 4</label>
-    <input type="number" class="form-control" name="cookie4" id="cookie4" value="0" min="0">
+    <label for="cookie4" class="form-label">Cookie 4 (R20 each)</label>
+    <input type="number" class="form-control cookie-input" name="cookie4" id="cookie4" value="0" min="0" data-price="20">
+  </div>
+
+  <!-- Total display -->
+  <div class="mb-4">
+    <h5 class="text-end">Total: <span id="orderTotal">R0</span></h5>
   </div>
 
   <div class="d-grid">
@@ -144,6 +109,25 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
 </form>
 
 <script>
+const inputs = document.querySelectorAll('.cookie-input');
+const totalDisplay = document.getElementById('orderTotal');
+
+function updateTotal() {
+  let total = 0;
+  inputs.forEach(input => {
+    const quantity = parseInt(input.value) || 0;
+    const price = parseFloat(input.dataset.price);
+    total += quantity * price;
+  });
+  totalDisplay.textContent = 'R' + total;
+}
+
+// Update total when any input changes
+inputs.forEach(input => {
+  input.addEventListener('input', updateTotal);
+});
+
+// Submit form
 document.getElementById('cookieOrderForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const form = e.target;
@@ -156,11 +140,16 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
   .then(res => res.text())
   .then(msg => {
     alert(msg);
-    form.reset(); // optional: clear the form after submission
+    form.reset();
+    updateTotal(); // Reset total after submit
   })
   .catch(err => alert('Error: ' + err));
 });
+
+// Calculate initial total
+updateTotal();
 </script>
+
 
 <!-- Total display -->
 <!-- Total display -->

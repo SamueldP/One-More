@@ -105,7 +105,6 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
 <!-- Total display -->
 <!-- Total display -->
                             
-<div class="container py-5">
 <form id="cookieOrderForm" class="p-4 border rounded shadow-sm bg-white" style="max-width: 600px; margin: auto;">
   <h3 class="mb-4 text-center">Place Your Cookie Order</h3>
 
@@ -120,28 +119,23 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
   </div>
 
   <div class="mb-3">
-    <label for="cookie1" class="form-label">Cookie 1 (R10)</label>
-    <input type="number" class="form-control cookie-input" name="cookie1" id="cookie1" value="0" min="0" data-price="10">
+    <label for="cookie1" class="form-label">Cookie 1</label>
+    <input type="number" class="form-control" name="cookie1" id="cookie1" value="0" min="0">
   </div>
 
   <div class="mb-3">
-    <label for="cookie2" class="form-label">Cookie 2 (R12)</label>
-    <input type="number" class="form-control cookie-input" name="cookie2" id="cookie2" value="0" min="0" data-price="12">
+    <label for="cookie2" class="form-label">Cookie 2</label>
+    <input type="number" class="form-control" name="cookie2" id="cookie2" value="0" min="0">
   </div>
 
   <div class="mb-3">
-    <label for="cookie3" class="form-label">Cookie 3 (R15)</label>
-    <input type="number" class="form-control cookie-input" name="cookie3" id="cookie3" value="0" min="0" data-price="15">
+    <label for="cookie3" class="form-label">Cookie 3</label>
+    <input type="number" class="form-control" name="cookie3" id="cookie3" value="0" min="0">
   </div>
 
   <div class="mb-3">
-    <label for="cookie4" class="form-label">Cookie 4 (R20)</label>
-    <input type="number" class="form-control cookie-input" name="cookie4" id="cookie4" value="0" min="0" data-price="20">
-  </div>
-
-  <!-- Display total only (not submitted) -->
-  <div class="mb-4">
-    <h5 class="text-end">Total: <span id="orderTotal">R0</span></h5>
+    <label for="cookie4" class="form-label">Cookie 4</label>
+    <input type="number" class="form-control" name="cookie4" id="cookie4" value="0" min="0">
   </div>
 
   <div class="d-grid">
@@ -155,18 +149,19 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
   const form = e.target;
   const data = new FormData(form);
 
-  fetch('https://script.google.com/macros/s/AKfycbwctzJM37YsJPnulHNo4ZZvcRsW373JydiYzyEffI7Zu4vF9hf2akUKOn4tTOOGqIH9WA/exec', {
+  fetch('https://script.google.com/macros/s/YOUR_WEB_APP_URL/exec', {
     method: 'POST',
     body: data
   })
   .then(res => res.text())
-  .then(msg => alert(msg))
+  .then(msg => {
+    alert(msg);
+    form.reset(); // optional: clear the form after submission
+  })
   .catch(err => alert('Error: ' + err));
 });
 </script>
 
-
-</div>
 <!-- Total display -->
 <!-- Total display -->
 <!-- Total display -->

@@ -141,7 +141,7 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
   const total = updateTotal(); // run and get current total
   data.append('total', total);
 
-  fetch('https://script.google.com/macros/s/AKfycbymeFueEn7WLn7t3MRyZV3uAabwWr_xPAdwU4hq0AzJ/dev', {
+  fetch('https://script.google.com/macros/s/AKfycbzo5xGFXNL8DXGE5iemW4TqOu53NcXUJR9VS4rrYse3vc9f84gMcnIPQzKgcYg3bDXo0g/exec', {
     method: 'POST',
     body: data
   })

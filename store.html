@@ -146,11 +146,23 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
     body: data
   })
   .then(res => res.text())
-  .then(msg => {
-    alert(msg);
-    form.reset();
-    updateTotal(); // clear total display
-  })
+.then(response => response.json())
+.then(data => {
+  alert(data.message);
+  form.reset();
+  updateTotal();
+
+  // Show QR code
+  const qrContainer = document.getElementById('qrCodeContainer');
+  qrContainer.innerHTML = `
+    <div class="text-center mt-4">
+      <p><strong>Scan this QR code to download your invoice:</strong></p>
+      <img src="${data.qrCodeUrl}" alt="QR Code to Invoice" style="max-width: 300px;"/>
+      <p class="mt-2"><a href="${data.invoiceUrl}" target="_blank">Or click here to view your invoice</a></p>
+    </div>
+  `;
+})
+
   .catch(err => alert('Error: ' + err));
 });
 

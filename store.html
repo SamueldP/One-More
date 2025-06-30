@@ -141,10 +141,27 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
   const total = updateTotal(); // run and get current total
   data.append('total', total);
 
-  fetch('https://script.google.com/macros/s/AKfycbzo5xGFXNL8DXGE5iemW4TqOu53NcXUJR9VS4rrYse3vc9f84gMcnIPQzKgcYg3bDXo0g/exec', {
-    method: 'POST',
-    body: data
-  })
+fetch('https://script.google.com/macros/s/AKfycbzo5xGFXNL8DXGE5iemW4TqOu53NcXUJR9VS4rrYse3vc9f84gMcnIPQzKgcYg3bDXo0g/exec', {
+  method: 'POST',
+  body: data
+})
+.then(res => res.json())
+.then(data => {
+  alert(data.message);
+
+  // Display QR code
+  document.getElementById('qrCodeContainer').innerHTML = `
+    <div class="text-center mt-4">
+      <p><strong>Scan to download your invoice:</strong></p>
+      <img src="${data.qrCodeUrl}" alt="Invoice QR" style="max-width: 300px;">
+      <p class="mt-2"><a href="${data.invoiceUrl}" target="_blank">Or click here to view it</a></p>
+    </div>
+  `;
+  form.reset();
+  updateTotal();
+})
+.catch(err => alert('Error: ' + err));
+
   .then(res => res.text())
 .then(response => response.json())
 .then(data => {
@@ -168,6 +185,7 @@ document.getElementById('cookieOrderForm').addEventListener('submit', function(e
 
 updateTotal(); // run on page load
 </script>
+<div id="qrCodeContainer"></div>
 
 
 <!-- Total display -->
